@@ -17,6 +17,7 @@ class Concentration {
             cards.append(card)
             cards.append(card)
         }
+        cards.shuffle()
     }
     
     func touchedCard(atIndex index: Int) {
