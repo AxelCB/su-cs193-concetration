@@ -13,7 +13,12 @@ class ViewController: UIViewController {
     @IBOutlet private var cardButtons: [UIButton]!
     @IBOutlet private weak var flipCountLabel: UILabel!
     
-    private var flipCount = 0
+    private var flipCount = 0 {
+        didSet {
+            flipCountLabel.text = "You flipped \(flipCount) cards"
+        }
+    }
+    private var currentTheme: ConcentrationTheme = .animals
     private lazy var game = Concentration(pairsOfCards: pairsOfCards)
     
     var pairsOfCards: Int {
@@ -22,12 +27,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        flipCountLabel.text = "You flipped \(flipCount) cards"
     }	
 
     @IBAction func touchCard(_ sender: UIButton) {
         flipCount += 1
-        flipCountLabel.text = "You flipped \(flipCount) cards"
         game.touchedCard(atIndex: cardButtons.firstIndex(of: sender)!)
         updateAllCardButtons()
     }
@@ -36,7 +39,7 @@ class ViewController: UIViewController {
         for (index, cardButton) in cardButtons.enumerated() {
             let card = game.cards[index]
             if card.isFaceUp {
-                cardButton.backgroundColor = UIColor.white
+                cardButton.backgroundColor = UIColor.lightGray
                 cardButton.setTitle(emoji(for: card), for: .normal)
             } else {
                 cardButton.backgroundColor = (card.isMatched) ? UIColor.clear : UIColor.orange
@@ -45,7 +48,15 @@ class ViewController: UIViewController {
         }
     }
     
-    var remainingThemeEmojis = ["🐶", "🐱", "🐰", "🦁", "🐨", "🐼", "🐵", "🐞", "🐙", "🦕", "🐬", "🕷", "🦋", "🦀"]
+    @IBAction func restartGame() {
+        game = Concentration(pairsOfCards: pairsOfCards)
+        flipCount = 0
+        remainingThemeEmojis = currentTheme.emojis
+        emojisByCard = [:]
+        updateAllCardButtons()
+    }
+    
+    lazy var remainingThemeEmojis = currentTheme.emojis
     
     var emojisByCard = [UUID: String]()
     

@@ -16,6 +16,7 @@
 		A114F184233EFF220033468A /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114F183233EFF220033468A /* Concentration.swift */; };
 		A114F188233F01790033468A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114F187233F01790033468A /* Card.swift */; };
 		A129679C23400FCE007FC0C7 /* Int+arc4random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129679B23400FCE007FC0C7 /* Int+arc4random.swift */; };
+		A129679E23401741007FC0C7 /* ConcentrationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129679D23401741007FC0C7 /* ConcentrationTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		A114F183233EFF220033468A /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
 		A114F187233F01790033468A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A129679B23400FCE007FC0C7 /* Int+arc4random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+arc4random.swift"; sourceTree = "<group>"; };
+		A129679D23401741007FC0C7 /* ConcentrationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				A114F183233EFF220033468A /* Concentration.swift */,
 				A114F187233F01790033468A /* Card.swift */,
 				A129679B23400FCE007FC0C7 /* Int+arc4random.swift */,
+				A129679D23401741007FC0C7 /* ConcentrationTheme.swift */,
 			);
 			path = Concentration;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			files = (
 				A114F174233EFAA70033468A /* ViewController.swift in Sources */,
 				A114F184233EFF220033468A /* Concentration.swift in Sources */,
+				A129679E23401741007FC0C7 /* ConcentrationTheme.swift in Sources */,
 				A129679C23400FCE007FC0C7 /* Int+arc4random.swift in Sources */,
 				A114F188233F01790033468A /* Card.swift in Sources */,
 				A114F170233EFAA70033468A /* AppDelegate.swift in Sources */,
