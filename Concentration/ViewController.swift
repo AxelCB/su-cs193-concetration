@@ -13,11 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet private var cardButtons: [UIButton]!
     @IBOutlet private weak var flipCountLabel: UILabel!
     
-    private var flipCount = 0 {
-        didSet {
-            updateFlipCountLabel()
-        }
-    }
     private var currentTheme = ConcentrationTheme.allCases.randomElement()! {
         didSet {
             remainingThemeEmojis = currentTheme.emojis
@@ -34,9 +29,9 @@ class ViewController: UIViewController {
     }	
 
     @IBAction private func touchCard(_ sender: UIButton) {
-        flipCount += 1
         game.touchedCard(atIndex: cardButtons.firstIndex(of: sender)!)
         updateAllCardButtons()
+        updateFlipCountLabel()
     }
     
     private func updateAllCardButtons() {
@@ -53,15 +48,15 @@ class ViewController: UIViewController {
     }
     
     private func updateFlipCountLabel() {
-        flipCountLabel.text = "You flipped \(flipCount) cards"
+        flipCountLabel.text = "You flipped \(game.flipCount) cards"
     }
     
     @IBAction private func restartGame() {
         game = Concentration(pairsOfCards: pairsOfCards)
-        flipCount = 0
         currentTheme = ConcentrationTheme.allCases.randomElement()!
         emojisByCard = [:]
         updateAllCardButtons()
+        updateFlipCountLabel()
     }
     
     lazy var remainingThemeEmojis = currentTheme.emojis

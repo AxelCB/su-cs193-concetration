@@ -10,6 +10,7 @@ import Foundation
 
 class Concentration {
     private(set) var cards = [Card]()
+    private(set) var flipCount = 0
     
     init(pairsOfCards: Int) {
         for _ in 0..<pairsOfCards {
@@ -27,6 +28,7 @@ class Concentration {
             print("Card already matched")
             return
         }
+        flipCount += 1
         
         let faceUpCards = cards.filter { $0.isFaceUp }
         if faceUpCards.count == 1, let onlyFaceUpCard = faceUpCards.first {
