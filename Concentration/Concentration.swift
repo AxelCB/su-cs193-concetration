@@ -12,6 +12,11 @@ class Concentration {
     private(set) var cards = [Card]()
     private(set) var flipCount = 0
     private(set) var score = 0
+    private var lastCardTouchDate: Date?
+    
+    private var faceUpCards: [Card] {
+        return cards.filter { $0.isFaceUp }
+    }
     
     init(pairsOfCards: Int) {
         for _ in 0..<pairsOfCards {
@@ -29,14 +34,16 @@ class Concentration {
             print("Card already matched")
             return
         }
-        flipCount += 1
         
-        let faceUpCards = cards.filter { $0.isFaceUp }
         if faceUpCards.count == 1, let onlyFaceUpCard = faceUpCards.first, let indexOfOnlyFaceUpCard = cards.firstIndex(of: onlyFaceUpCard) {
             if indexOfOnlyFaceUpCard != index, onlyFaceUpCard.identifier == cards[index].identifier {
                 cards[index].isMatched = true
                 cards[indexOfOnlyFaceUpCard].isMatched = true
-                score += 2
+                if let lastCardTouchDate = lastCardTouchDate {
+                    let secondsSinceLastCardTouch = Date().timeIntervalSince(lastCardTouchDate)
+                    let scoreBasedOnTime = (3 - Int(secondsSinceLastCardTouch/2))
+                    score += (scoreBasedOnTime > 0) ? scoreBasedOnTime : 0
+                }
             } else {
                 if cards[index].hasBeenSeen {
                     score -= 1
@@ -54,5 +61,7 @@ class Concentration {
             }
             cards[index].isFaceUp = true
         }
+        flipCount += 1
+        lastCardTouchDate = Date()
     }
 }
