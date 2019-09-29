@@ -74,4 +74,23 @@ enum ConcentrationTheme: CaseIterable {
             return UIColor.yellow
         }
     }
+    
+    var boardBackgroundColor: UIColor {
+        switch self {
+        case .animals:
+            return UIColor.white
+        case .sports:
+            return UIColor.white
+        case .weather:
+            return UIColor.white
+        case .food:
+            return UIColor.white
+        case .arts:
+            return UIColor.white
+        case .flags:
+            return UIColor.white
+        case .fruitsAndVegetables:
+            return UIColor.white
+        }
+    }
 }

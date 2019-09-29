@@ -27,6 +27,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = currentTheme.boardBackgroundColor
+        updateAllCardButtons()
     }	
 
     @IBAction private func touchCard(_ sender: UIButton) {
@@ -60,6 +62,7 @@ class ViewController: UIViewController {
     @IBAction private func restartGame() {
         game = Concentration(pairsOfCards: pairsOfCards)
         currentTheme = ConcentrationTheme.allCases.randomElement()!
+        view.backgroundColor = currentTheme.boardBackgroundColor
         emojisByCard = [:]
         updateAllCardButtons()
         updateFlipCountLabel()
