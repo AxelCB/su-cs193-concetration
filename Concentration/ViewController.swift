@@ -15,10 +15,14 @@ class ViewController: UIViewController {
     
     private var flipCount = 0 {
         didSet {
-            flipCountLabel.text = "You flipped \(flipCount) cards"
+            updateFlipCountLabel()
         }
     }
-    private var currentTheme: ConcentrationTheme = .animals
+    private var currentTheme = ConcentrationTheme.allCases.randomElement()! {
+        didSet {
+            remainingThemeEmojis = currentTheme.emojis
+        }
+    }
     private lazy var game = Concentration(pairsOfCards: pairsOfCards)
     
     var pairsOfCards: Int {
@@ -29,7 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }	
 
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         flipCount += 1
         game.touchedCard(atIndex: cardButtons.firstIndex(of: sender)!)
         updateAllCardButtons()
@@ -39,19 +43,23 @@ class ViewController: UIViewController {
         for (index, cardButton) in cardButtons.enumerated() {
             let card = game.cards[index]
             if card.isFaceUp {
-                cardButton.backgroundColor = UIColor.lightGray
+                cardButton.backgroundColor = currentTheme.facingUpCardBackgroundColor
                 cardButton.setTitle(emoji(for: card), for: .normal)
             } else {
-                cardButton.backgroundColor = (card.isMatched) ? UIColor.clear : UIColor.orange
+                cardButton.backgroundColor = (card.isMatched) ? UIColor.clear : currentTheme.facingDownCardBackgroundColor
                 cardButton.setTitle("", for: .normal)
             }
         }
     }
     
-    @IBAction func restartGame() {
+    private func updateFlipCountLabel() {
+        flipCountLabel.text = "You flipped \(flipCount) cards"
+    }
+    
+    @IBAction private func restartGame() {
         game = Concentration(pairsOfCards: pairsOfCards)
         flipCount = 0
-        remainingThemeEmojis = currentTheme.emojis
+        currentTheme = ConcentrationTheme.allCases.randomElement()!
         emojisByCard = [:]
         updateAllCardButtons()
     }

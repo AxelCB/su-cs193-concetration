@@ -7,16 +7,71 @@
 //
 
 import Foundation
+import UIKit
 
-enum ConcentrationTheme {
+enum ConcentrationTheme: CaseIterable {
     case animals
+    case sports
+    case weather
+    case food
+    case arts
+    case flags
+    case fruitsAndVegetables
     
     var emojis: [String] {
         switch self {
         case .animals:
             return ["🐶", "🐱", "🐰", "🦁", "🐨", "🐼", "🐵", "🐞", "🐙", "🦕", "🐬", "🕷", "🦋", "🦀"]
-        default:
-            return []
+        case .sports:
+            return ["🏓", "🎱", "🥏", "🏐", "🎾", "⚾️", "🏈", "🏀", "⚽️", "🏸", "🏒", "🏹", "🛹", "⛷", "🏂", "🏄🏻‍♂️", "🏊🏻‍♀️", "🧗🏻‍♂️", "🚵🏻‍♂️"]
+        case .weather:
+            return ["☀️", "⛅️", "☁️", "🌧", "⛈", "❄️", "🌪", "🌈", "🌞", "🌛", "☃️", "☔️"]
+        case .food:
+            return ["🥐", "🧀", "🥨", "🍞", "🥓", "🍗", "🥩", "🌭", "🍔", "🍟", "🍕", "🥪", "🥙", "🌮", "🥗", "🥘"]
+        case .arts:
+            return ["🎭", "🎨", "🎬", "🎤", "🎧", "🎼", "🎹", "🥁", "🎷", "🎺", "🎸", "🎻"]
+        case .flags:
+            return ["🇦🇫", "🇦🇽", "🇦🇱", "🇩🇿", "🇦🇸", "🇦🇩", "🇦🇴", "🇦🇮", "🇦🇶", "🇦🇬", "🇦🇷", "🇦🇲", "🇦🇼", "🇦🇺", "🇦🇹", "🇦🇿", "🇧🇸", "🇧🇭", "🇧🇩", "🇧🇧", "🇧🇾", "🇧🇪", "🇧🇿", "🇧🇯", "🇧🇲", "🇧🇹", "🇧🇴", "🇧🇦", "🇧🇼", "🇧🇷", "🇮🇴", "🇻🇬", "🇧🇳", "🇧🇬", "🇧🇫", "🇧🇮", "🇰🇭", "🇨🇲", "🇨🇦", "🇮🇨", "🇨🇻", "🇧🇶", "🇰🇾", "🇨🇫", "🇹🇩", "🇨🇱", "🇨🇳", "🇨🇽", "🇨🇨"]
+        case .fruitsAndVegetables:
+            return ["🥕", "🌽", "🍅", "🍆", "🥑", "🥦", "🥬", "🥝", "🥥", "🌶", "🍍", "🥭", "🍑", "🍒", "🍈", "🍓", "🍇", "🍉", "🍏", "🍎", "🍐", "🍊", "🍋", "🍌"]
+        }
+    }
+    
+    var facingDownCardBackgroundColor: UIColor {
+        switch self {
+        case .animals:
+            return UIColor.orange
+        case .sports:
+            return UIColor.yellow
+        case .weather:
+            return UIColor.yellow
+        case .food:
+            return UIColor.yellow
+        case .arts:
+            return UIColor.yellow
+        case .flags:
+            return UIColor.yellow
+        case .fruitsAndVegetables:
+            return UIColor.yellow
+        }
+    }
+    
+    var facingUpCardBackgroundColor: UIColor {
+        switch self {
+        case .animals:
+            return UIColor.lightGray
+        case .sports:
+            return UIColor.yellow
+        case .weather:
+            return UIColor.yellow
+        case .food:
+            return UIColor.yellow
+        case .arts:
+            return UIColor.yellow
+        case .flags:
+            return UIColor.yellow
+        case .fruitsAndVegetables:
+            return UIColor.yellow
         }
     }
 }
