@@ -11,12 +11,6 @@ import Foundation
 struct Card: Equatable {
     var isFaceUp = false
     var isMatched = false
+    var hasBeenSeen = false
     let identifier = UUID()
-    
-    
-    
-    
-//    static func == (lhs: Card, rhs: Card) -> Bool {
-//        return lhs.identifier == rhs.identifier
-//    }
 }

@@ -11,6 +11,7 @@ import Foundation
 class Concentration {
     private(set) var cards = [Card]()
     private(set) var flipCount = 0
+    private(set) var score = 0
     
     init(pairsOfCards: Int) {
         for _ in 0..<pairsOfCards {
@@ -31,12 +32,21 @@ class Concentration {
         flipCount += 1
         
         let faceUpCards = cards.filter { $0.isFaceUp }
-        if faceUpCards.count == 1, let onlyFaceUpCard = faceUpCards.first {
-            if let indexOfOnlyFaceUpCard = cards.firstIndex(of: onlyFaceUpCard),
-                    indexOfOnlyFaceUpCard != index, onlyFaceUpCard.identifier == cards[index].identifier {
+        if faceUpCards.count == 1, let onlyFaceUpCard = faceUpCards.first, let indexOfOnlyFaceUpCard = cards.firstIndex(of: onlyFaceUpCard) {
+            if indexOfOnlyFaceUpCard != index, onlyFaceUpCard.identifier == cards[index].identifier {
                 cards[index].isMatched = true
                 cards[indexOfOnlyFaceUpCard].isMatched = true
+                score += 2
+            } else {
+                if cards[index].hasBeenSeen {
+                    score -= 1
+                }
+                if cards[indexOfOnlyFaceUpCard].hasBeenSeen {
+                    score -= 1
+                }
             }
+            cards[index].hasBeenSeen = true
+            cards[indexOfOnlyFaceUpCard].hasBeenSeen = true
             cards[index].isFaceUp = true
         } else {
             for faceUpCard in faceUpCards {
