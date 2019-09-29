@@ -29,7 +29,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = currentTheme.boardBackgroundColor
         updateAllCardButtons()
-    }	
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAllCardButtons), name: Notification.Name(Concentration.cardsUpdatedNotificationName), object: nil)
+    }
 
     @IBAction private func touchCard(_ sender: UIButton) {
         game.touchedCard(atIndex: cardButtons.firstIndex(of: sender)!)
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
         updateScoreLabel()
     }
     
-    private func updateAllCardButtons() {
+    @objc private func updateAllCardButtons() {
         for (index, cardButton) in cardButtons.enumerated() {
             let card = game.cards[index]
             if card.isFaceUp {

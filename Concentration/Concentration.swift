@@ -9,10 +9,14 @@
 import Foundation
 
 class Concentration {
+    static let cardsUpdatedNotificationName = "Concentration.cardsUpdated"
+    
     private(set) var cards = [Card]()
     private(set) var flipCount = 0
     private(set) var score = 0
     private var lastCardTouchDate: Date?
+    
+    weak var flipCardsDownTimer: Timer?
     
     private var faceUpCards: [Card] {
         return cards.filter { $0.isFaceUp }
@@ -35,6 +39,8 @@ class Concentration {
             return
         }
         
+        flipCardsDownTimer?.invalidate()
+        
         if faceUpCards.count == 1, let onlyFaceUpCard = faceUpCards.first, let indexOfOnlyFaceUpCard = cards.firstIndex(of: onlyFaceUpCard) {
             if indexOfOnlyFaceUpCard != index, onlyFaceUpCard.identifier == cards[index].identifier {
                 cards[index].isMatched = true
@@ -55,6 +61,12 @@ class Concentration {
             cards[index].hasBeenSeen = true
             cards[indexOfOnlyFaceUpCard].hasBeenSeen = true
             cards[index].isFaceUp = true
+            flipCardsDownTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                for faceUpCard in self.faceUpCards {
+                    self.cards[self.cards.firstIndex(of: faceUpCard)!].isFaceUp = false
+                }
+                NotificationCenter.default.post(name: Notification.Name(Concentration.cardsUpdatedNotificationName), object: nil)
+            }
         } else {
             for faceUpCard in faceUpCards {
                 cards[cards.firstIndex(of: faceUpCard)!].isFaceUp = false
