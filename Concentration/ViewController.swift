@@ -33,13 +33,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func touchCard(_ sender: UIButton) {
-        game.touchedCard(atIndex: cardButtons.firstIndex(of: sender)!)
+        game.chooseCard(atIndex: cardButtons.firstIndex(of: sender)!)
         updateAllCardButtons()
         updateFlipCountLabel()
         updateScoreLabel()
     }
     
     @objc private func updateAllCardButtons() {
+//        game.flipDownAllCards()
         for (index, cardButton) in cardButtons.enumerated() {
             let card = game.cards[index]
             if card.isFaceUp {
@@ -72,12 +73,12 @@ class ViewController: UIViewController {
     
     lazy var remainingThemeEmojis = currentTheme.emojis
     
-    var emojisByCard = [UUID: String]()
+    var emojisByCard = [Card: String]()
     
     func emoji(for card: Card) -> String {
-        if emojisByCard[card.identifier] == nil {
-            emojisByCard[card.identifier] = remainingThemeEmojis.remove(at: remainingThemeEmojis.count.arc4random)
+        if emojisByCard[card] == nil {
+            emojisByCard[card] = remainingThemeEmojis.remove(at: remainingThemeEmojis.count.arc4random)
         }
-        return emojisByCard[card.identifier] ?? "?"
+        return emojisByCard[card] ?? "?"
     }
 }

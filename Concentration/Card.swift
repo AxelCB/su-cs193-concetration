@@ -8,9 +8,29 @@
 
 import Foundation
 
-struct Card: Equatable {
+struct Card: Hashable {
     var isFaceUp = false
     var isMatched = false
     var hasBeenSeen = false
-    let identifier = UUID()
+    var matchingValue: Int
+    private let identifier = UUID()
+    
+    init(matchingValue: Int) {
+        self.matchingValue = matchingValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(matchingValue)
+    }
+    
+    static func ==(lhs: Card, rhs: Card) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    private static var matchingValueFactory = 0
+    
+    static func getUniqueMatchingValue() -> Int {
+        matchingValueFactory += 1
+        return matchingValueFactory
+    }
 }
